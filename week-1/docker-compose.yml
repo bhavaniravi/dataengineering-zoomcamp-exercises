@@ -3,8 +3,10 @@ x-common-variables: &postgres-variables
   POSTGRES_USER: zoomcamp
   POSTGRES_PASSWORD: zoomcamp
   POSTGRES_DB: ny_taxi
-  DATA_URL: https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz
+  DATA_URL: https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-01.csv.gz
   TABLE_NAME: "yellow_taxi_trips"
+  # DATA_URL: https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv
+  # TABLE_NAME: "taxi_zone_lookup"
   CHUNK_SIZE: 10
   POSTGRES_HOST: "postgres"
 services:

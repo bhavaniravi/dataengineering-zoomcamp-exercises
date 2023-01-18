@@ -17,19 +17,17 @@ table_name = os.environ["TABLE_NAME"]
 chunksize = int(os.environ.get("CHUNK_SIZE", 1000))
 
 print("Reading csv")
-df = pd.read_csv(url, compression="infer")
-# df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-# df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
-
-# Instead of these above two lines I'm using chunk_size and dtype parameter
-
-print("Writing to sql")
-df.to_sql(
-    name=table_name,
-    con=engine,
-    if_exists="replace",
-    chunksize=chunksize,
-    index=False,
-    method="multi",
-    dtype={"tpep_pickup_datetime": DateTime(), "tpep_dropoff_datetime": DateTime()},
-)
+for df in pd.read_csv(url, compression="infer", chunksize=chunksize):
+    print("Writing to sql")
+    df.to_sql(
+        name=table_name,
+        con=engine,
+        index=False,
+        if_exists="append",
+        dtype={
+            "tpep_pickup_datetime": DateTime(),
+            "tpep_dropoff_datetime": DateTime(),
+            "lpep_pickup_datetime": DateTime(),
+            "lpep_dropoff_datetime": DateTime(),
+        },
+    )
