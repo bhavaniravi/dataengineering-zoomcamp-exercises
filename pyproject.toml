@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "dataengineering-zoomcamp"
+version = "1.0.0"
+description = "Taking data engineering zoomcamp"
+authors = ["bhavaniravi <bhava0895@gmail.com>"]
+readme = "README.md"
+packages = [{include = "dataengineering_zoomcamp"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+psycopg-binary = "^3.1.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
