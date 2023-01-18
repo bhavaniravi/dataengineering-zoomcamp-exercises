@@ -1,0 +1,42 @@
+version: "3.4"
+x-common-variables: &postgres-variables
+  POSTGRES_USER: zoomcamp
+  POSTGRES_PASSWORD: zoomcamp
+  POSTGRES_DB: ny_taxi
+  DATA_URL: https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz
+  TABLE_NAME: "yellow_taxi_trips"
+  CHUNK_SIZE: 10
+  POSTGRES_HOST: "postgres"
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      <<: *postgres-variables
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "zoomcamp", "-d", "ny_taxi"]
+      interval: 5s
+      retries: 5
+    restart: always
+  ingestion:
+    image: ny_taxi:latest
+    environment:
+      <<: *postgres-variables
+    command: ingestion
+    depends_on:
+      postgres:
+        condition: service_healthy
+  analytics:
+    image: ny_taxi:latest
+    environment:
+      <<: *postgres-variables
+    command: analytics
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-db-volume:
