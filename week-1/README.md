@@ -3,7 +3,17 @@
 - Taking inspiration from the project repo and giving my spin to it
 - I have worked with Python, Docker, Kubernetes for last 4 years, taking the course to fill in the gaps
 
+## How to run
+
+```
+cd week-1
+docker build -t ny_taxi .
+docker-compose up 
+```
+
 ### Download Data
+
+> I've passed the remote URL as a parameter to ingestion script instead of mounting as a volume.
 
 ```
 cd week-1
@@ -29,6 +39,7 @@ The `-p data` will write it to data folder
 
 - The zoomcamp script was chunking the df transforming and then ingesting
 - Instead I took the route to use `chunksize` and `dtype` parameters
+- One problem with dtype casting was that the column name in 2019 file was different from 2021 file. Which means I have to change the script for new data. 
 
 ## Using Poetry
 
@@ -56,5 +67,12 @@ docker build -t ny_taxi .
 - `entrypoint.sh` is inspired from Airflow Docker-compose setup where it is used to start different components of Airflow 
 
 ```
-bash entrypoint.sh ingestion 
+bash entrypoint.sh ingestion # will run python ingestion.py
+bash entrypoint.sh analytics # will run python analytics.py
 ```
+
+## Analytics
+
+> The [SQL Referesher](https://www.youtube.com/watch?v=hKI6PkPhpa0&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=9) was super helpful
+
+For the homework we had to run about 4-5 queries.
