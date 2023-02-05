@@ -1,0 +1,64 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-redshift-flow'
+###
+name: redshift_to_s3
+description: null
+version: c24d7535f9b4e20fccfcef901d48db97
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters:
+  months:
+  - 2
+  - 3
+  year: 2019
+  color: yellow
+schedule: null
+infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-redshift-flow
+manifest_path: null
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  _block_document_id: dd509d02-4583-4bb3-bacb-fcaf4cbf201a
+  _block_document_name: anonymous-43ca08aa-d526-454f-ae4e-0afabc66089a
+  _is_anonymous: true
+  block_type_slug: process
+  _block_type_slug: process
+storage: null
+path: /Users/bhavaniravi/projects/dataengineering-zoomcamp/week-2
+entrypoint: flows/etl_s3_to_redshift.py:etl_redshift_flow
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    months:
+      title: months
+      default:
+      - 1
+      - 2
+      position: 0
+      type: array
+      items:
+        type: integer
+    year:
+      title: year
+      default: 2021
+      position: 1
+      type: integer
+    color:
+      title: color
+      default: yellow
+      position: 2
+      type: string
+  required: null
+  definitions: null
